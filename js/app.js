@@ -11,8 +11,7 @@ const egresos = [
   new Egreso("Alquiler", 4000),
   new Egreso("Ropa", 1000),
   new Egreso("Crossfit", 1500),
-  new Egreso("Supermercado", 9000), 
-  new Egreso("Transferencia", 4000)
+  new Egreso("Supermercado", 9000)
 ];
 
 // CARGAR APLICACIÓN
@@ -161,3 +160,28 @@ const eliminarEgreso = (id) => {
     cargarEgresos();
 }
 
+// AGREGAR INGRESO O EGRESO
+let agregarDato = () => {
+    // CAPTURAR FORMULARIO
+    let forma = document.forms['forma'];
+    // GUARDAR DATOS DEL FORMULARIO
+    let tipo = forma['tipo'];
+    let descripcion = forma['descripcion'];
+    let valor = forma['valor'];
+    // COMPROBAR QUE LOS CAMPOS DEL FORMULARIO NO ESTEN VACIOS
+    if(descripcion.value !== '' && valor.value !== ''){
+        // COMPROBAR TIPO DE DATO
+        if(tipo.value === "ingreso"){
+            // GUARDAR NUEVO OBJETO EN EL ARRAY DE INGRESOS_HTML
+            ingresos.push(new Ingreso(descripcion.value, Number(valor.value)));
+            // CARGAR Y ACTUALIZAR HEADER E INGRESOS
+            cargarCabecero();
+            cargarIngresos();
+        } else if(tipo.value === "egreso"){
+            egresos.push(new Egreso(descripcion.value, Number(valor.value)));
+            // CARGAR Y ACTUALIZAR HEADER Y EGRESOS
+            cargarCabecero();
+            cargarEgresos();
+        }
+    }
+}
